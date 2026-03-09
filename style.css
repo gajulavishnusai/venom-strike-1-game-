@@ -1,0 +1,493 @@
+@font-face {
+    font-family: 'VenomFont';
+    src: url('assets/venom_font.ttf');
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #000;
+    cursor: none;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #fff;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    position: relative;
+    width: 95vw;
+    max-width: 1600px;
+    aspect-ratio: 16 / 9;
+    background: url('assets/new_interface.png') no-repeat center center;
+    background-size: contain;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.2);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    overflow: hidden;
+}
+
+#menu-logo {
+    display: block;
+    /* Show the logo */
+    width: 760px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6)) drop-shadow(0 0 40px rgba(0, 150, 0, 0.3)) brightness(1.4) contrast(1.2);
+    animation:
+        logo-entrance 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+        logo-float-smooth 6s infinite ease-in-out 1.5s;
+    opacity: 0;
+    mix-blend-mode: screen;
+    /* Relaxed mask for better visibility */
+    -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0) 100%);
+}
+
+@keyframes logo-entrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        filter: blur(10px) brightness(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0) brightness(1.2) contrast(1.1);
+    }
+}
+
+@keyframes logo-float-smooth {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 0 25px rgba(0, 255, 0, 0.3));
+    }
+
+    50% {
+        transform: translateY(-15px) scale(1.01);
+        filter: drop-shadow(0 0 40px rgba(0, 255, 0, 0.5));
+    }
+}
+
+
+.start-interaction {
+    font-family: 'Nosifer', cursive;
+    font-size: 42px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    cursor: pointer;
+    padding: 20px 60px;
+    background: none;
+    border: none;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 0, 0, 0.4);
+    animation: start-pulse 3s infinite ease-in-out;
+    margin-bottom: 120px;
+    /* Move upwards */
+    z-index: 20;
+}
+
+.start-interaction:hover {
+    background: rgba(255, 0, 0, 0.2);
+    transform: scale(1.05);
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+    letter-spacing: 12px;
+}
+
+@keyframes start-pulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+    }
+}
+
+/* Background Effects - Enhanced HD */
+.bg-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.symbiote-tendrils {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+.symbiote-tendrils::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,50 Q25,25 50,50 T100,50" fill="none" stroke="rgba(0,255,0,0.05)" stroke-width="0.5"><animate attributeName="d" dur="15s" repeatCount="indefinite" values="M0,50 Q25,25 50,50 T100,50; M0,50 Q25,75 50,50 T100,50; M0,50 Q25,25 50,50 T100,50" /></path></svg>');
+    background-size: 150% 150%;
+    opacity: 0.5;
+    animation: tendril-move-slow 40s infinite linear;
+}
+
+@keyframes tendril-move-slow {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+.space-dust {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(1.5px 1.5px at 10px 10px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(2.5px 2.5px at 150px 300px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 400px 150px, rgba(255, 255, 255, 0.7), transparent);
+    background-size: 500px 500px;
+    opacity: 0.3;
+    animation: dust-float-hd 60s infinite linear;
+}
+
+@keyframes dust-float-hd {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 500px 1000px;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 100%);
+    backdrop-filter: blur(20px) saturate(1.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    overflow: hidden;
+}
+
+/* Cinematic Scanlines */
+#menu-overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 101;
+    opacity: 0.3;
+}
+
+#menu-content {
+    background: linear-gradient(135deg, rgba(10, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%),
+        url('assets/new_interface.png');
+    background-size: cover;
+    background-blend-mode: multiply;
+    padding: 60px 100px;
+    border: 2px solid rgba(139, 0, 0, 0.3);
+    border-radius: 40px;
+    box-shadow:
+        inset 0 0 60px rgba(139, 0, 0, 0.2),
+        0 0 40px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(139, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: visible;
+    /* To allow decorative elements to peek out */
+    animation: menu-breathing 8s infinite ease-in-out;
+}
+
+@keyframes menu-breathing {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 60px rgba(139, 0, 0, 0.3);
+    }
+}
+
+/* Realistic Blood Texture Overlay */
+#menu-content::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(139, 0, 0, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    animation: venom-pulse 6s infinite alternate;
+}
+
+/* Decorative Corner Spikes */
+.menu-corner {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 3px solid transparent;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.top-left {
+    top: -10px;
+    left: -10px;
+    border-top-color: #f00;
+    border-left-color: #f00;
+    border-radius: 20px 0 0 0;
+    box-shadow: -5px -5px 20px rgba(255, 0, 0, 0.4);
+}
+
+.top-right {
+    top: -10px;
+    right: -10px;
+    border-top-color: #f00;
+    border-right-color: #f00;
+    border-radius: 0 20px 0 0;
+    box-shadow: 5px -5px 20px rgba(255, 0, 0, 0.4);
+}
+
+.bottom-left {
+    bottom: -10px;
+    left: -10px;
+    border-bottom-color: #f00;
+    border-left-color: #f00;
+    border-radius: 0 0 0 20px;
+    box-shadow: -5px 5px 20px rgba(255, 0, 0, 0.4);
+}
+
+.bottom-right {
+    bottom: -10px;
+    right: -10px;
+    border-bottom-color: #f00;
+    border-right-color: #f00;
+    border-radius: 0 0 20px 0;
+    box-shadow: 5px 5px 20px rgba(255, 0, 0, 0.4);
+}
+
+@keyframes venom-pulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+#menu-title {
+    font-family: 'Pirata One', cursive;
+    font-size: 110px;
+    /* Increased size */
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+    /* Increased spacing */
+    color: #ff3333;
+    /* Brighter red */
+    text-transform: uppercase;
+    text-shadow:
+        3px 3px 0 #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        0 0 25px rgba(255, 0, 0, 0.8),
+        0 0 50px rgba(255, 0, 0, 0.6),
+        0 0 15px rgba(255, 255, 255, 0.3);
+    /* Subtle white glow core */
+    animation: title-glitch-entrance 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) both,
+        title-pulse 3s infinite ease-in-out 0.8s;
+}
+
+@keyframes title-glitch-entrance {
+    0% {
+        opacity: 0;
+        transform: scale(1.2) skewX(20deg);
+        filter: brightness(3) blur(5px);
+    }
+
+    20% {
+        transform: scale(0.95) skewX(-10deg);
+        filter: brightness(2) blur(2px);
+    }
+
+    40% {
+        transform: scale(1.05) skewX(5deg);
+        filter: brightness(1.5) blur(1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) skewX(0);
+        filter: brightness(1) blur(0);
+    }
+}
+
+@keyframes title-pulse {
+
+    0%,
+    100% {
+        text-shadow: 5px 5px 0 #000, 0 0 20px rgba(255, 0, 0, 0.6), 0 0 40px rgba(255, 0, 0, 0.4);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 5px 5px 0 #000, 0 0 35px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.6);
+        transform: scale(1.02);
+    }
+}
+
+#score-info {
+    font-family: 'Creepster', cursive;
+    margin-bottom: 40px;
+    font-size: 28px;
+    color: #ffaaaa;
+    letter-spacing: 2px;
+}
+
+#score-info span {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff0000;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ff3333;
+    border: 1px solid #600;
+    padding: 16px 60px;
+    font-size: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+    background: linear-gradient(180deg, #800 0%, #400 100%);
+    color: #fff;
+    transform: scale(1.1) translateY(-5px);
+    border-color: #f00;
+    text-shadow: 0 0 15px #fff, 0 0 30px #f00;
+    box-shadow: 0 15px 30px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.2);
+    letter-spacing: 8px;
+}
+
+/* Button Slicing Effect */
+button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+button:hover::after {
+    left: 100%;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#restart-btn:hover {
+    background: #800;
+}
+
+#back-btn:hover {
+    background: #222;
+    border-color: #444;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #600;
+    border-radius: 2px;
+}

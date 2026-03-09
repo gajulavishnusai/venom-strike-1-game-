@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Symbiote Hunter - Advanced</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=Nosifer&family=Creepster&family=Eater&family=Lacquer&family=Pirata+One&family=Metal+Mania&family=Barlow+Condensed:wght@900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div id="start-screen">
+        <div class="menu-container">
+            <img src="assets/menu_logo_hd.png" alt="VENOM STRIKE 1" id="menu-logo">
+            <div id="start-btn" class="start-interaction">
+                CLICK TO START
+            </div>
+        </div>
+        <div class="bg-effects">
+            <div class="symbiote-tendrils"></div>
+            <div class="space-dust"></div>
+        </div>
+    </div>
+
+    <div id="menu-overlay" class="hidden">
+        <div id="menu-content">
+            <!-- Decorative Corners -->
+            <div class="menu-corner top-left"></div>
+            <div class="menu-corner top-right"></div>
+            <div class="menu-corner bottom-left"></div>
+            <div class="menu-corner bottom-right"></div>
+
+            <h1 id="menu-title">PAUSED</h1>
+            <div id="score-info" class="hidden">
+                <p>Score: <span id="final-score">0</span></p>
+                <p>High Score: <span id="high-score">0</span></p>
+            </div>
+            <div class="menu-buttons">
+                <button id="resume-btn">RESUME</button>
+                <button id="restart-btn">RESTART</button>
+                <button id="back-btn">BACK</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="audio-container">
+        <audio id="bgm" src="assets/theme.mpeg" loop></audio>
+        <audio id="menu-music" src="assets/theme.mpeg" loop></audio>
+        <audio id="click-sound" src="assets/outstanding.mp3"></audio>
+        <audio id="game-over-sound" src="assets/game_over.mp3"></audio>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
